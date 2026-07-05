@@ -14,12 +14,12 @@ function cleanNumber(value) {
 }
 
 function importExcelV3() {
-    alert("IMPORT V3 STARTED");
+  alert("IMPORT V3 STARTED");
 
-    const file = excelFile.files[0];
-    const companyId = uploadCompany.value;
+  const file = excelFile.files[0];
+  const companyId = uploadCompany.value;
 
-    if (!file) return alert("Choose Excel file");
+  if (!file) return alert("Choose Excel file");
 
   const reader = new FileReader();
 
@@ -34,7 +34,6 @@ function importExcelV3() {
     });
 
     let headerIndex = -1;
-    let snCol = -1;
     let nameCol = -1;
     let ctnCol = -1;
     let bagCol = -1;
@@ -42,7 +41,6 @@ function importExcelV3() {
     for (let i = 0; i < rawRows.length; i++) {
       const row = rawRows[i].map(normalizeKey);
 
-      snCol = row.findIndex(x => x === "sn" || x === "sno" || x === "no");
       nameCol = row.findIndex(x =>
         x === "particular" ||
         x === "particulars" ||
@@ -50,6 +48,7 @@ function importExcelV3() {
         x === "product" ||
         x === "productname"
       );
+
       ctnCol = row.findIndex(x => x === "ctn" || x === "carton");
       bagCol = row.findIndex(x => x === "bag");
 
@@ -77,7 +76,6 @@ function importExcelV3() {
       if (name.toLowerCase().includes("total")) continue;
 
       const price = ctn !== "" ? ctn : bag;
-
       if (price === "") continue;
 
       products.push({
@@ -95,11 +93,7 @@ function importExcelV3() {
     }
 
     if (!products.length) {
-      alert(
-        "Imported 0 products. Header row found at row " +
-        (headerIndex + 1) +
-        ", but no product rows were readable."
-      );
+      alert("Imported 0 products. Header found at row " + (headerIndex + 1));
       return;
     }
 
@@ -108,7 +102,6 @@ function importExcelV3() {
       .concat(products.sort((a, b) => a.name.localeCompare(b.name)));
 
     saveDB();
-
     alert("Imported " + products.length + " products");
   };
 
