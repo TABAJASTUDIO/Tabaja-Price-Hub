@@ -30,3 +30,5 @@ Recommended columns:
 
 Currency: NLe  
 No product images.
+
+.Trigger Cloudflare deploy
