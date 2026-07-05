@@ -59,7 +59,9 @@ function showCompanyPrices(companyId, code) {
     .filter(p => p.companyId === companyId && p.status === "Active")
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  publicContent.innerHTML = `
+  const box = document.getElementById("publicContent");
+
+  box.innerHTML = `
     <input class="search" placeholder="Search product..." oninput="filterPublic(this.value, '${companyId}')">
     <div id="pricesBox">${priceRows(rows)}</div>
   `;
