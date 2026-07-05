@@ -13,12 +13,13 @@ function cleanNumber(value) {
   return Number.isFinite(n) ? n : "";
 }
 
-function importExcel() {
-    alert("IMPORT STARTED");
-  const file = excelFile.files[0];
-  const companyId = uploadCompany.value;
+function importExcelV3() {
+    alert("IMPORT V3 STARTED");
 
-  if (!file) return alert("Choose Excel file");
+    const file = excelFile.files[0];
+    const companyId = uploadCompany.value;
+
+    if (!file) return alert("Choose Excel file");
 
   const reader = new FileReader();
 
