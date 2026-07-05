@@ -6,36 +6,6 @@ function normalizeKey(value) {
     .trim();
 }
 
-function findHeaderIndex(rawRows) {
-  for (let i = 0; i < rawRows.length; i++) {
-    const row = rawRows[i].map(x => normalizeKey(x));
-
-    const hasProduct =
-      row.includes("product") ||
-      row.includes("productname") ||
-      row.includes("description") ||
-      row.includes("particular") ||
-      row.includes("particulars");
-
-    const hasPrice =
-      row.includes("price") ||
-      row.includes("ctn") ||
-      row.includes("carton") ||
-      row.includes("bag");
-
-    if (hasProduct && hasPrice) return i;
-  }
-  return -1;
-}
-
-function pickValue(row, names) {
-  const wanted = names.map(normalizeKey);
-  for (const key of Object.keys(row)) {
-    if (wanted.includes(normalizeKey(key))) return row[key];
-  }
-  return "";
-}
-
 function cleanNumber(value) {
   const cleaned = String(value ?? "").replace(/,/g, "").trim();
   if (!cleaned) return "";
@@ -61,67 +31,87 @@ function importExcel() {
       defval: ""
     });
 
-    const headerIndex = findHeaderIndex(rawRows);
+    let headerIndex = -1;
+    let snCol = -1;
+    let nameCol = -1;
+    let ctnCol = -1;
+    let bagCol = -1;
+
+    for (let i = 0; i < rawRows.length; i++) {
+      const row = rawRows[i].map(normalizeKey);
+
+      snCol = row.findIndex(x => x === "sn" || x === "sno" || x === "no");
+      nameCol = row.findIndex(x =>
+        x === "particular" ||
+        x === "particulars" ||
+        x === "description" ||
+        x === "product" ||
+        x === "productname"
+      );
+      ctnCol = row.findIndex(x => x === "ctn" || x === "carton");
+      bagCol = row.findIndex(x => x === "bag");
+
+      if (nameCol !== -1 && (ctnCol !== -1 || bagCol !== -1)) {
+        headerIndex = i;
+        break;
+      }
+    }
 
     if (headerIndex === -1) {
-      alert("Could not find headers. Use: Particular's, CTN, BAG");
+      alert("Import failed: headers not found. Required: Particular's + CTN or BAG");
       return;
     }
 
-    const headers = rawRows[headerIndex].map(x => String(x || "").trim());
-
-    const rows = rawRows.slice(headerIndex + 1).map(values => {
-      const obj = {};
-      headers.forEach((header, index) => {
-        obj[header || "col" + index] = values[index];
-      });
-      return obj;
-    });
-
     const products = [];
 
-    rows.forEach(row => {
-      const name = pickValue(row, [
-        "Product",
-        "Product Name",
-        "Description",
-        "Particular",
-        "Particulars",
-        "Particular's"
-      ]);
+    for (let i = headerIndex + 1; i < rawRows.length; i++) {
+      const row = rawRows[i];
 
-      const ctn = cleanNumber(
-        pickValue(row, ["CTN", "Carton", "Carton Price", "CTN Price"])
+      const name = String(row[nameCol] || "").trim();
+      const ctn = ctnCol >= 0 ? cleanNumber(row[ctnCol]) : "";
+      const bag = bagCol >= 0 ? cleanNumber(row[bagCol]) : "";
+
+      if (!name) continue;
+      if (name.toLowerCase().includes("total")) continue;
+
+      const price = ctn !== "" ? ctn : bag;
+
+      if (price === "") continue;
+
+      products.push({
+        id: uid("pr"),
+        companyId,
+        code: "",
+        name,
+        price: Number(price),
+        ctn: ctn === "" ? "" : Number(ctn),
+        bag: bag === "" ? "" : Number(bag),
+        status: "Active",
+        isOffer: "no",
+        offerPrice: ""
+      });
+    }
+
+    if (!products.length) {
+      alert(
+        "Imported 0 products. Header row found at row " +
+        (headerIndex + 1) +
+        ", but no product rows were readable."
       );
-
-      const bag = cleanNumber(
-        pickValue(row, ["BAG", "Bag Price", "BAG Price (NLe)"])
-      );
-
-      const price = ctn !== "" ? ctn : cleanNumber(pickValue(row, ["Price"]));
-
-      if (name && price !== "") {
-        products.push({
-          id: uid("pr"),
-          companyId,
-          code: "",
-          name: String(name).trim(),
-          price: Number(price),
-          ctn: ctn === "" ? "" : Number(ctn),
-          bag: bag === "" ? "" : Number(bag),
-          status: "Active",
-          isOffer: "no",
-          offerPrice: ""
-        });
-      }
-    });
+      return;
+    }
 
     db.products = db.products
       .filter(product => product.companyId !== companyId)
       .concat(products.sort((a, b) => a.name.localeCompare(b.name)));
 
     saveDB();
+
     alert("Imported " + products.length + " products");
+  };
+
+  reader.onerror = () => {
+    alert("Import failed: could not read Excel file");
   };
 
   reader.readAsArrayBuffer(file);
