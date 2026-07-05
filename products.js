@@ -12,14 +12,15 @@ function renderProducts() {
   );
 
   productList.innerHTML =
-    "<table><tr><th>Company</th><th>Product</th><th>Price</th><th>Status</th></tr>" +
+    "<table><tr><th>Company</th><th>Particular's</th><th>CTN</th><th>BAG</th><th>Status</th></tr>" +
     rows.map(p => {
       const company = db.companies.find(c => c.id === p.companyId) || {};
       return `
         <tr>
           <td>${esc(company.name)}</td>
           <td>${esc(p.name)}</td>
-          <td>${money(p.price)}</td>
+          <td>${p.ctn !== "" && p.ctn !== undefined ? money(p.ctn) : "-"}</td>
+          <td>${p.bag !== "" && p.bag !== undefined ? money(p.bag) : "-"}</td>
           <td>${esc(p.status)}</td>
         </tr>
       `;

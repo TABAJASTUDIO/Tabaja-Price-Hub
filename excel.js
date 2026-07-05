@@ -14,8 +14,6 @@ function cleanNumber(value) {
 }
 
 function importExcel() {
-  alert("IMPORT V3 STARTED");
-
   const file = excelFile.files[0];
   const companyId = uploadCompany.value;
 
