@@ -1,34 +1,21 @@
-# TABAJA Price Hub
+# Tabaja Price Hub D1 Final
 
-Professional Customer Price Portal | Powered by TABAJA Smart Business Solutions
+Upload all files to GitHub.
 
-## V1 Features
+Important:
+- Keep the folder exactly: functions/api/[[path]].js
+- Cloudflare Pages binding must be:
+  - Type: D1 database
+  - Variable name: DB
+  - Database: tabaja-price-hub-db
 
-- Create / Edit / Delete Companies
-- Create / Edit / Delete Customers
-- Customer permissions:
-  - Company access
-  - Can view offers
-  - Active / Suspended / Disabled
-- Excel upload per company
-- Products sorted alphabetically
-- Product search by name
-- Offers as discount prices only
-- Customer portal by card code: `?c=C000001`
-- WhatsApp button
-- Backup export/import
-- Powered by TABAJA
+Commit message:
+Connect Price Hub to D1 with QR NFC customer portal
 
-## Excel Columns
-
-Recommended columns:
-
-- Product
-- Price
-- Code optional
-- Status optional
-
-Currency: NLe  
-No product images.
-
-.Trigger Cloudflare deploy
+After deploy:
+1. Open admin page.
+2. Create customer.
+3. Check Company Access.
+4. Upload Excel prices.
+5. Open customer link.
+6. Test company buttons, CTN/BAG, offers, QR and NFC link.

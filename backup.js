@@ -1,27 +1,2 @@
-function exportBackup() {
-  const blob = new Blob([JSON.stringify(db, null, 2)], { type: "application/json" });
-  const link = document.createElement("a");
-
-  link.href = URL.createObjectURL(blob);
-  link.download = "tabaja-price-hub-backup.json";
-  link.click();
-}
-
-backupFile.addEventListener("change", event => {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    try {
-      db = JSON.parse(reader.result);
-      saveDB();
-      alert("Backup imported");
-    } catch {
-      alert("Invalid backup file");
-    }
-  };
-
-  reader.readAsText(file);
-});
+function exportBackup(){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="tabaja-price-hub-backup.json";link.click();}
+backupFile.addEventListener("change",event=>{const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{db=JSON.parse(reader.result);saveDB();alert("Backup imported");}catch{alert("Invalid backup file");}};reader.readAsText(file);});

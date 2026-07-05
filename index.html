@@ -17,7 +17,6 @@
           <small>Smart Business Solutions</small>
         </div>
       </div>
-
       <nav class="nav">
         <button class="active" data-tab="dashboard">📊 Dashboard</button>
         <button data-tab="companies">🏢 Companies</button>
@@ -27,18 +26,16 @@
         <button data-tab="portal">📱 Portal Preview</button>
         <button data-tab="backup">💾 Backup</button>
       </nav>
-
       <div class="side-note">
-        <b>V1 Status</b>
-        <p>Standalone prototype. Data saves in this browser until backend is connected.</p>
+        <b>D1 Server Mode</b>
+        <p>Customer links, QR and NFC work from any device after Cloudflare DB binding is active.</p>
       </div>
     </aside>
 
     <main class="main">
       <section id="dashboard" class="tab">
         <h1>TABAJA Price Hub</h1>
-        <p class="muted">Central price list, customer access, offers, Excel import, and NFC customer portal.</p>
-
+        <p class="muted">Server price list with customer access, Excel import, offers, QR and NFC links.</p>
         <div class="kpis">
           <div class="kpi"><b id="kCompanies">0</b><span>Companies</span></div>
           <div class="kpi"><b id="kCustomers">0</b><span>Customers</span></div>
@@ -51,23 +48,12 @@
         <div class="panel">
           <h2>Create / Edit Company</h2>
           <input type="hidden" id="companyId">
-          <label>Company Name</label>
-          <input id="companyName" placeholder="Company Name">
-          <label>WhatsApp Number</label>
-          <input id="companyWhatsapp" placeholder="23276000000">
-          <label>Status</label>
-          <select id="companyActive">
-            <option value="yes">Active</option>
-            <option value="no">Disabled</option>
-          </select>
-          <div class="row">
-            <button class="btn" onclick="saveCompany()">Save Company</button>
-            <button class="btn secondary" onclick="clearCompanyForm()">New</button>
-          </div>
+          <label>Company Name</label><input id="companyName" placeholder="Company Name">
+          <label>WhatsApp Number</label><input id="companyWhatsapp" placeholder="23276000000">
+          <label>Status</label><select id="companyActive"><option value="yes">Active</option><option value="no">Disabled</option></select>
+          <div class="row"><button class="btn" onclick="saveCompany()">Save Company</button><button class="btn secondary" onclick="clearCompanyForm()">New</button></div>
         </div>
-        <div class="panel">
-          <div id="companyList" class="table-wrap"></div>
-        </div>
+        <div class="panel"><div id="companyList" class="table-wrap"></div></div>
       </section>
 
       <section id="customers" class="tab hidden">
@@ -76,70 +62,31 @@
           <h2>Create / Edit Customer</h2>
           <input type="hidden" id="customerId">
           <div class="grid2">
-            <div>
-              <label>Customer Name</label>
-              <input id="customerName" placeholder="Customer Name">
-            </div>
-            <div>
-              <label>Phone</label>
-              <input id="customerPhone" placeholder="+232 ...">
-            </div>
-            <div>
-              <label>Agent</label>
-              <input id="customerAgent" placeholder="Agent Name / Number">
-            </div>
-            <div>
-              <label>Card Code</label>
-              <input id="customerCode" placeholder="C000001">
-            </div>
-            <div>
-              <label>Can View Offers</label>
-              <select id="customerOffers">
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
-              </select>
-            </div>
-            <div>
-              <label>Status</label>
-              <select id="customerStatus">
-                <option>Active</option>
-                <option>Suspended</option>
-                <option>Disabled</option>
-              </select>
-            </div>
+            <div><label>Customer Name</label><input id="customerName" placeholder="Customer Name"></div>
+            <div><label>Phone</label><input id="customerPhone" placeholder="+232 ..."></div>
+            <div><label>Agent</label><input id="customerAgent" placeholder="Agent Name / Number"></div>
+            <div><label>Card Code</label><input id="customerCode" placeholder="C000001"></div>
+            <div><label>Can View Offers</label><select id="customerOffers"><option value="no">No</option><option value="yes">Yes</option></select></div>
+            <div><label>Status</label><select id="customerStatus"><option>Active</option><option>Suspended</option><option>Disabled</option></select></div>
           </div>
-
-          <label>Company Access</label>
-          <div id="customerCompanyAccess" class="checks"></div>
-
-          <div class="row">
-            <button class="btn" onclick="saveCustomer()">Save Customer</button>
-            <button class="btn secondary" onclick="clearCustomerForm()">New</button>
-          </div>
+          <label>Company Access</label><div id="customerCompanyAccess" class="checks"></div>
+          <div class="row"><button class="btn" onclick="saveCustomer()">Save Customer</button><button class="btn secondary" onclick="clearCustomerForm()">New</button></div>
         </div>
-        <div class="panel">
-          <div id="customerList" class="table-wrap"></div>
-        </div>
+        <div class="panel"><div id="customerList" class="table-wrap"></div></div>
       </section>
 
       <section id="prices" class="tab hidden">
         <h1>Prices / Excel Upload</h1>
         <div class="panel">
           <h2>Upload Company Price Excel</h2>
-          <p class="muted">Excel must contain <b>Product</b> and <b>Price</b>. Optional: Code, Status. Currency: NLe.</p>
-          <label>Select Company</label>
-          <select id="uploadCompany"></select>
-          <label>Excel File</label>
-          <input id="excelFile" type="file" accept=".xlsx,.xls,.csv">
-          <div class="row">
-            <button class="btn" onclick="importExcel()">Upload & Replace Company Prices</button>
-          </div>
+          <p class="muted">Excel accepts <b>Particular's</b>, <b>CTN</b>, <b>BAG</b>. Currency: NLe.</p>
+          <label>Select Company</label><select id="uploadCompany"></select>
+          <label>Excel File</label><input id="excelFile" type="file" accept=".xlsx,.xls,.csv">
+          <div class="row"><button class="btn" onclick="importExcel()">Upload & Replace Company Prices</button></div>
         </div>
-
         <div class="panel">
           <h2>All Products</h2>
-          <label>Search Product</label>
-          <input id="adminProductSearch" placeholder="Search..." oninput="renderProducts()">
+          <label>Search Product</label><input id="adminProductSearch" placeholder="Search..." oninput="renderProducts()">
           <div id="productList" class="table-wrap"></div>
         </div>
       </section>
@@ -147,11 +94,9 @@
       <section id="offers" class="tab hidden">
         <h1>Offers</h1>
         <div class="panel">
-          <p class="muted">V1 rule: offers are only discounted prices. No “Buy 10 Get 1”.</p>
-          <label>Select Company</label>
-          <select id="offerCompany"></select>
-          <label>Search Product</label>
-          <input id="offerSearch" oninput="renderOfferPicker()" placeholder="Search product to mark as offer">
+          <p class="muted">Offers are discounted prices only.</p>
+          <label>Select Company</label><select id="offerCompany" onchange="renderOfferPicker()"></select>
+          <label>Search Product</label><input id="offerSearch" oninput="renderOfferPicker()" placeholder="Search product">
           <div id="offerPicker" class="table-wrap"></div>
         </div>
       </section>
@@ -159,8 +104,7 @@
       <section id="portal" class="tab hidden">
         <h1>Customer Portal Preview</h1>
         <div class="panel">
-          <label>Preview Customer</label>
-          <select id="previewCustomer" onchange="renderPortal()"></select>
+          <label>Preview Customer</label><select id="previewCustomer" onchange="renderPortal()"></select>
           <div id="portalPreview"></div>
         </div>
       </section>
@@ -178,14 +122,14 @@
 
   <div id="publicApp" class="public hidden"></div>
 
-  <script src="database.js"></script>
-  <script src="companies.js"></script>
-  <script src="customers.js"></script>
-  <script src="products.js"></script>
-  <script src="offers.js"></script>
-  <script src="excel.js?v=4"></script>
-  <script src="portal.js"></script>
-  <script src="backup.js"></script>
-  <script src="app.js"></script>
+  <script src="database.js?v=final1"></script>
+  <script src="companies.js?v=final1"></script>
+  <script src="customers.js?v=final1"></script>
+  <script src="products.js?v=final1"></script>
+  <script src="offers.js?v=final1"></script>
+  <script src="excel.js?v=final1"></script>
+  <script src="portal.js?v=final1"></script>
+  <script src="backup.js?v=final1"></script>
+  <script src="app.js?v=final1"></script>
 </body>
 </html>
