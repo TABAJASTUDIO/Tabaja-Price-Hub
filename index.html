@@ -41,95 +41,14 @@
           <div class="kpi"><b id="kCustomers">0</b><span>Customers</span></div>
           <div class="kpi"><b id="kProducts">0</b><span>Products</span></div>
         </div>
-      </section>
 
-      <section id="companies" class="tab hidden">
-        <h1>Companies</h1>
-        <div class="panel">
-          <h2>Create / Edit Company</h2>
-          <input type="hidden" id="companyId">
-          <label>Company Name</label><input id="companyName" placeholder="Company Name">
-          <label>WhatsApp Number</label><input id="companyWhatsapp" placeholder="23276000000">
-          <label>Status</label><select id="companyActive"><option value="yes">Active</option><option value="no">Disabled</option></select>
-          <div class="row"><button class="btn" onclick="saveCompany()">Save Company</button><button class="btn secondary" onclick="clearCompanyForm()">New</button></div>
-        </div>
-        <div class="panel"><div id="companyList" class="table-wrap"></div></div>
-      </section>
+        <!-- WhatsApp Quick Contact -->
+        <div class="panel" style="margin-top: 20px;">
+          <h2>Quick Contact</h2>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            
+            <a href="https://wa.me/23279777888?text=Hello%20Sales%20Department%20-%20TABAJA" target="_blank" class="btn-whatsapp">
+              📞 Sales Department
+            </a>
 
-      <section id="customers" class="tab hidden">
-        <h1>Customers</h1>
-        <div class="panel">
-          <h2>Create / Edit Customer</h2>
-          <input type="hidden" id="customerId">
-          <div class="grid2">
-            <div><label>Customer Name</label><input id="customerName" placeholder="Customer Name"></div>
-            <div><label>Phone</label><input id="customerPhone" placeholder="+232 ..."></div>
-            <div><label>Agent</label><input id="customerAgent" placeholder="Agent Name / Number"></div>
-            <div><label>Card Code</label><input id="customerCode" placeholder="C000001"></div>
-            <div><label>Can View Offers</label><select id="customerOffers"><option value="no">No</option><option value="yes">Yes</option></select></div>
-            <div><label>Status</label><select id="customerStatus"><option>Active</option><option>Suspended</option><option>Disabled</option></select></div>
-          </div>
-          <label>Company Access</label><div id="customerCompanyAccess" class="checks"></div>
-          <div class="row"><button class="btn" onclick="saveCustomer()">Save Customer</button><button class="btn secondary" onclick="clearCustomerForm()">New</button></div>
-        </div>
-        <div class="panel"><div id="customerList" class="table-wrap"></div></div>
-      </section>
-
-      <section id="prices" class="tab hidden">
-        <h1>Prices / Excel Upload</h1>
-        <div class="panel">
-          <h2>Upload Company Price Excel</h2>
-          <p class="muted">Excel accepts <b>Particular's</b>, <b>CTN</b>, <b>BAG</b>. Currency: NLe.</p>
-          <label>Select Company</label><select id="uploadCompany"></select>
-          <label>Excel File</label><input id="excelFile" type="file" accept=".xlsx,.xls,.csv">
-          <div class="row"><button class="btn" onclick="importExcel()">Upload & Replace Company Prices</button></div>
-        </div>
-        <div class="panel">
-          <h2>All Products</h2>
-          <label>Search Product</label><input id="adminProductSearch" placeholder="Search..." oninput="renderProducts()">
-          <div id="productList" class="table-wrap"></div>
-        </div>
-      </section>
-
-      <section id="offers" class="tab hidden">
-        <h1>Offers</h1>
-        <div class="panel">
-          <p class="muted">Offers are discounted prices only.</p>
-          <label>Select Company</label><select id="offerCompany" onchange="renderOfferPicker()"></select>
-          <label>Search Product</label><input id="offerSearch" oninput="renderOfferPicker()" placeholder="Search product">
-          <div id="offerPicker" class="table-wrap"></div>
-        </div>
-      </section>
-
-      <section id="portal" class="tab hidden">
-        <h1>Customer Portal Preview</h1>
-        <div class="panel">
-          <label>Preview Customer</label><select id="previewCustomer" onchange="renderPortal()"></select>
-          <div id="portalPreview"></div>
-        </div>
-      </section>
-
-      <section id="backup" class="tab hidden">
-        <h1>Backup</h1>
-        <div class="panel">
-          <button class="btn" onclick="exportBackup()">Export Backup JSON</button>
-          <button class="btn secondary" onclick="document.getElementById('backupFile').click()">Import Backup JSON</button>
-          <input id="backupFile" class="hidden" type="file" accept="application/json">
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <div id="publicApp" class="public hidden"></div>
-
-  <script src="database.js?v=final1"></script>
-  <script src="companies.js?v=final1"></script>
-  <script src="customers.js?v=final1"></script>
-  <script src="products.js?v=final1"></script>
-  <script src="offers.js?v=final1"></script>
-  <script src="excel.js?v=final1"></script>
-  <script src="portal.js?v=final1"></script>
-  <script src="backup.js?v=final1"></script>
-  <script src="app.js?v=final1"></script>
-</body>
-</html>
+            <a href="https://wa.me/23288880850?text=Hello%20Stock%20Control%20-%20TABAJA" target="_blank" class
