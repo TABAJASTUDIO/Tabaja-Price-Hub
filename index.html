@@ -30,38 +30,6 @@
         <b>D1 Server Mode</b>
         <p>Customer links, QR and NFC work from any device after Cloudflare DB binding is active.</p>
       </div>
-
-      <!-- WhatsApp Buttons Added -->
-      <div class="whatsapp-buttons" style="padding: 12px; display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-        
-        <a href="https://wa.me/232XXXXXXXXX?text=Hello%20Sales%20Department%20-%20TABAJA" target="_blank" class="btn-whatsapp">
-          📞 WhatsApp Sales Department
-        </a>
-
-        <a href="https://wa.me/232YYYY?text=Hello%20Stock%20Control%20-%20TABAJA" target="_blank" class="btn-whatsapp">
-          📦 WhatsApp Stock Control
-        </a>
-
-      </div>
-      <style>
-      .btn-whatsapp {
-        background: #25D366;
-        color: white;
-        padding: 12px;
-        border-radius: 10px;
-        text-align: center;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 14px;
-        transition: 0.2s;
-        display: block;
-      }
-      .btn-whatsapp:hover {
-        background: #128C7E;
-        transform: translateY(-1px);
-      }
-      </style>
-
     </aside>
 
     <main class="main">
@@ -140,3 +108,28 @@
           <div id="portalPreview"></div>
         </div>
       </section>
+
+      <section id="backup" class="tab hidden">
+        <h1>Backup</h1>
+        <div class="panel">
+          <button class="btn" onclick="exportBackup()">Export Backup JSON</button>
+          <button class="btn secondary" onclick="document.getElementById('backupFile').click()">Import Backup JSON</button>
+          <input id="backupFile" class="hidden" type="file" accept="application/json">
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="publicApp" class="public hidden"></div>
+
+  <script src="database.js?v=final1"></script>
+  <script src="companies.js?v=final1"></script>
+  <script src="customers.js?v=final1"></script>
+  <script src="products.js?v=final1"></script>
+  <script src="offers.js?v=final1"></script>
+  <script src="excel.js?v=final1"></script>
+  <script src="portal.js?v=final1"></script>
+  <script src="backup.js?v=final1"></script>
+  <script src="app.js?v=final1"></script>
+</body>
+</html>
